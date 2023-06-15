@@ -15,29 +15,15 @@ var searchMoviesGrid = document.getElementById("search-movies-grid");
 var displayedPages = 1;
 
 function createMovieCard(movie) {
-  const divMovieCard = document.createElement("div");
-  divMovieCard.classList.add("movie-card");
-
-  const h1Title = document.createElement("h1");
-  h1Title.classList.add("movie-title");
-  h1Title.textContent = movie.title;
-
-  const imgPoster = document.createElement("img");
-  imgPoster.classList.add("movie-poster");
-  const imgPosterBaseURL = "https://image.tmdb.org/t/p/w500";
-  const imgPosterURL = imgPosterBaseURL + movie.poster_path;
-  imgPoster.setAttribute("src", imgPosterURL);
-  imgPoster.setAttribute("alt", movie.title + " poster.");
-
-  const pVoteAverage = document.createElement("p");
-  pVoteAverage.classList.add("movie-votes");
-  pVoteAverage.textContent = "⭐️ " + movie.vote_average;
-
-  divMovieCard.appendChild(h1Title);
-  divMovieCard.appendChild(imgPoster);
-  divMovieCard.appendChild(pVoteAverage);
-
-  return divMovieCard;
+  return `
+    <div class="movie-card">
+      <h1 class="movie-title">${movie.title}</h1>
+      <div class="movie-poster-container">
+        <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title} poster.">
+        <p class="movie-votes">⭐️ ${movie.vote_average}</p>
+      </div>
+    </div>
+  `;
 }
 
 async function loadNowPlayingMoviesPage(page) {
@@ -56,7 +42,7 @@ async function loadNowPlayingMoviesPage(page) {
 
     const movies = data.results;
     movies.forEach((movie) => {
-      moviesGrid.appendChild(createMovieCard(movie));
+      moviesGrid.innerHTML += createMovieCard(movie);
     });
   } catch (error) {
     console.log(error);
@@ -107,7 +93,7 @@ searchInput.addEventListener("keydown", async (event) => {
 
       const movies = data.results;
       movies.forEach((movie) => {
-        searchMoviesGrid.appendChild(createMovieCard(movie));
+        searchMoviesGrid.innerHTML += createMovieCard(movie);
       });
     } catch (error) {
       console.log(error);
