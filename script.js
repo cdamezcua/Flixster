@@ -1,4 +1,6 @@
 var moviesGrid = document.getElementById("movies-grid");
+var loadMoreMoviesButton = document.getElementById("load-more-movies-btn");
+var displayedPages = 1;
 
 async function loadNowPlayingMoviesPage(page) {
   try {
@@ -46,3 +48,9 @@ async function loadNowPlayingMoviesPage(page) {
 }
 
 document.addEventListener("DOMContentLoaded", loadNowPlayingMoviesPage(1));
+
+loadMoreMoviesButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  ++displayedPages;
+  loadNowPlayingMoviesPage(displayedPages);
+});
