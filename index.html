@@ -9,11 +9,28 @@
   <body>
     <header>
       <h1>🍿 Flixster</h1>
+      <button id="search-btn">🔍</button>
+      <form action="" id="search-form" style="display: none">
+        <button id="close-search-btn">❌</button>
+        <input type="text" id="search-input" placeholder="Search movies..." />
+      </form>
     </header>
-    <div>
-      <h2>🎬 Now Playing</h2>
+    <div class="movies-grid-container" id="movies-grid-container">
+      <header>
+        <h2>🎬 Now Playing</h2>
+      </header>
       <div id="movies-grid"></div>
       <button id="load-more-movies-btn">Load more movies</button>
+    </div>
+    <div
+      class="movies-grid-container"
+      id="search-movies-grid-container"
+      style="display: none"
+    >
+      <header>
+        <h2>🔍 Search Results</h2>
+      </header>
+      <div id="search-movies-grid"></div>
     </div>
     <script src="script.js"></script>
   </body>

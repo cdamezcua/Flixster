@@ -1,5 +1,15 @@
+var MoviesGridContainer = document.getElementById("movies-grid-container");
 var moviesGrid = document.getElementById("movies-grid");
 var loadMoreMoviesButton = document.getElementById("load-more-movies-btn");
+
+var searchButton = document.getElementById("search-btn");
+var searchForm = document.getElementById("search-form");
+var searchInput = document.getElementById("search-input");
+var closeSearchButton = document.getElementById("close-search-btn");
+
+var searchMoviesGridContainer = document.getElementById("search-movies-grid-container");
+var searchMoviesGrid = document.getElementById("search-movies-grid");
+
 var displayedPages = 1;
 
 async function loadNowPlayingMoviesPage(page) {
@@ -53,4 +63,12 @@ loadMoreMoviesButton.addEventListener("click", (event) => {
   event.preventDefault();
   ++displayedPages;
   loadNowPlayingMoviesPage(displayedPages);
+});
+
+searchButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  searchButton.style.display = "none";
+  MoviesGridContainer.style.display = "none";
+  searchForm.style.display = "block";
+  searchMoviesGridContainer.style.display = "block";
 });
