@@ -3,30 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Raleway:300,700"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato:400,700"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>🍿 Flixster</title>
   </head>
   <body>
     <header id="header">
       <h1 id="logo">🍿 Flixster</h1>
-      <button id="search-btn">🔍</button>
-      <form action="" id="search-form" style="display: none">
-        <button id="close-search-btn">❌</button>
-        <input type="text" id="search-input" placeholder="Search movies..." />
+      <form action="" id="search-form">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search movies..."
+          style="display: none"
+        />
+        <button id="close-search-btn" style="display: none">❌</button>
+        <button id="search-btn">🔍</button>
       </form>
     </header>
-    <div class="movies-grid-container" id="movies-grid-container">
-      <h2>🎬 Now Playing</h2>
-      <div class="movies-grid" id="movies-grid"></div>
-      <button id="load-more-movies-btn">Load more movies</button>
-    </div>
-    <div
-      class="movies-grid-container"
-      id="search-movies-grid-container"
-      style="display: none"
-    >
-      <h2>🔍 Search Results</h2>
-      <div class="movies-grid" id="search-movies-grid"></div>
+    <div id="main">
+      <div class="movies-grid-container" id="movies-grid-container">
+        <h2>🎬 Now Playing</h2>
+        <div class="movies-grid" id="movies-grid"></div>
+        <button id="load-more-movies-btn">Load more movies</button>
+      </div>
+      <div
+        class="movies-grid-container"
+        id="search-movies-grid-container"
+        style="display: none"
+      >
+        <h2>🔍 Search Results</h2>
+        <div class="movies-grid" id="search-movies-grid"></div>
+      </div>
     </div>
     <script src="script.js"></script>
   </body>
