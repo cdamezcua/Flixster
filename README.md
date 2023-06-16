@@ -1,5 +1,3 @@
-📝 **NOTE** Use this template to initialize the contents of a README.md file for your application. As you work on your assignment over the course of the week, update the required or stretch features lists to indicate which features you have completed by changing `[ ]` to `[x]`. (🚫 Remove this paragraph before submitting your assignment.)
-
 ## Week 1 Assignment: Flixster
 
 Submitted by: **Carlos David Amezcua Canales**
@@ -61,6 +59,8 @@ Instead of using emojis, I would have used icons to represent various elements o
 The project demo went well overall. The basic functionality of displaying movie information and allowing users to search and view movie details was successfully demonstrated. During the project demo, I received feedback from the teacher that highlighted a strange behavior in the search functionality. This feedback was valuable as it helped me identify an issue that needed to be addressed. I took the feedback and worked on correcting the problem.
 
 ### Open-source libraries used
+
+- N/A.
 
 ### Shout out
 
