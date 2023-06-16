@@ -11,11 +11,13 @@ var searchMoviesGridContainer = document.getElementById(
 );
 var searchMoviesGrid = document.getElementById("search-movies-grid");
 
+var movieDialog = document.getElementById("movie-dialog");
+
 var displayedPages = 1;
 
 function createMovieCard(movie) {
   return `
-    <div class="movie-card">
+    <div class="movie-card" data-movie-id="${movie.id}">
       <div class="movie-title-container">
         <h1 class="movie-title">${movie.title}</h1>
       </div>
@@ -86,10 +88,8 @@ closeSearchButton.addEventListener("click", (event) => {
 });
 
 searchInput.addEventListener("keydown", async (event) => {
-  console.log("Key pressed.");
   if (event.key === "Enter") {
     event.preventDefault();
-    console.log("Enter key pressed.");
     if (searchInput.value !== "") {
       showSearchMoviesGridContainer();
     } else {
@@ -111,6 +111,83 @@ searchInput.addEventListener("keydown", async (event) => {
       const movies = data.results;
       movies.forEach((movie) => {
         searchMoviesGrid.innerHTML += createMovieCard(movie);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
+function createMovieDialog(movie) {
+  while (movieDialog.firstChild) {
+    movieDialog.removeChild(movieDialog.firstChild);
+  }
+  movieDialog.id = "movie-dialog";
+  const h1MovieDialogTitle = document.createElement("h1");
+  h1MovieDialogTitle.classList.add("movie-dialog-title");
+  h1MovieDialogTitle.textContent = movie.title;
+  movieDialog.appendChild(h1MovieDialogTitle);
+  const movieDialogCloseButton = document.createElement("button");
+  movieDialogCloseButton.id = "movie-dialog-close-btn";
+  movieDialogCloseButton.textContent = "Close";
+  movieDialog.appendChild(movieDialogCloseButton);
+  const movieDialogBackdropPosterContainer = document.createElement("div");
+  movieDialogBackdropPosterContainer.classList.add(
+    "movie-dialog-backdrop-poster-container"
+  );
+  const imgMovieDialogBackdropPoster = document.createElement("img");
+  imgMovieDialogBackdropPoster.classList.add("movie-dialog-backdrop-poster");
+  imgMovieDialogBackdropPoster.src = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
+  imgMovieDialogBackdropPoster.alt = `${movie.title} backdrop poster.`;
+  movieDialogBackdropPosterContainer.appendChild(imgMovieDialogBackdropPoster);
+  movieDialog.appendChild(movieDialogBackdropPosterContainer);
+  const pMovieDialogRuntime = document.createElement("p");
+  pMovieDialogRuntime.textContent = `Runtime: ${movie.runtime} min`;
+  const pMovieDialogReleaseDate = document.createElement("p");
+  movieDialog.appendChild(pMovieDialogRuntime);
+  pMovieDialogReleaseDate.textContent = `Release date: ${movie.release_date}`;
+  movieDialog.appendChild(pMovieDialogReleaseDate);
+  const genres = movie.genres;
+  const divMovieDialogGenres = document.createElement("div");
+  divMovieDialogGenres.classList.add("movie-dialog-genres");
+  genres.forEach((genre) => {
+    const pMovieDialogGenre = document.createElement("p");
+    pMovieDialogGenre.classList.add("movie-dialog-genre");
+    pMovieDialogGenre.textContent = genre.name;
+    divMovieDialogGenres.appendChild(pMovieDialogGenre);
+  });
+  movieDialog.appendChild(divMovieDialogGenres);
+  const pMovieDialogOverview = document.createElement("p");
+  pMovieDialogOverview.textContent = movie.overview;
+  movieDialog.appendChild(pMovieDialogOverview);
+  console.log(movieDialog);
+}
+
+document.addEventListener("click", async (event) => {
+  if (event.target.closest(".movie-card")) {
+    const movieId = event.target.closest(".movie-card").dataset.movieId;
+    try {
+      const baseURL = `https://api.themoviedb.org/3/movie/${movieId}`;
+      const apikey = "b55c170bfdfea258df28f3ba96c063b4";
+
+      const url = new URL(baseURL);
+      url.searchParams.append("api_key", apikey);
+
+      console.log(url);
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const movie = data;
+      createMovieDialog(movie);
+      document.body.appendChild(movieDialog);
+      movieDialog.showModal();
+
+      movieDialogCloseButton = document.getElementById("movie-dialog-close-btn");
+
+      movieDialogCloseButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        movieDialog.close();
       });
     } catch (error) {
       console.log(error);
