@@ -119,48 +119,25 @@ searchInput.addEventListener("keydown", async (event) => {
 });
 
 function createMovieDialog(movie) {
-  while (movieDialog.firstChild) {
-    movieDialog.removeChild(movieDialog.firstChild);
-  }
-  movieDialog.id = "movie-dialog";
-  const h1MovieDialogTitle = document.createElement("h1");
-  h1MovieDialogTitle.classList.add("movie-dialog-title");
-  h1MovieDialogTitle.textContent = movie.title;
-  movieDialog.appendChild(h1MovieDialogTitle);
-  const movieDialogCloseButton = document.createElement("button");
-  movieDialogCloseButton.id = "movie-dialog-close-btn";
-  movieDialogCloseButton.textContent = "Close";
-  movieDialog.appendChild(movieDialogCloseButton);
-  const movieDialogBackdropPosterContainer = document.createElement("div");
-  movieDialogBackdropPosterContainer.classList.add(
-    "movie-dialog-backdrop-poster-container"
-  );
-  const imgMovieDialogBackdropPoster = document.createElement("img");
-  imgMovieDialogBackdropPoster.classList.add("movie-dialog-backdrop-poster");
-  imgMovieDialogBackdropPoster.src = `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`;
-  imgMovieDialogBackdropPoster.alt = `${movie.title} backdrop poster.`;
-  movieDialogBackdropPosterContainer.appendChild(imgMovieDialogBackdropPoster);
-  movieDialog.appendChild(movieDialogBackdropPosterContainer);
-  const pMovieDialogRuntime = document.createElement("p");
-  pMovieDialogRuntime.textContent = `Runtime: ${movie.runtime} min`;
-  const pMovieDialogReleaseDate = document.createElement("p");
-  movieDialog.appendChild(pMovieDialogRuntime);
-  pMovieDialogReleaseDate.textContent = `Release date: ${movie.release_date}`;
-  movieDialog.appendChild(pMovieDialogReleaseDate);
-  const genres = movie.genres;
-  const divMovieDialogGenres = document.createElement("div");
-  divMovieDialogGenres.classList.add("movie-dialog-genres");
-  genres.forEach((genre) => {
-    const pMovieDialogGenre = document.createElement("p");
-    pMovieDialogGenre.classList.add("movie-dialog-genre");
-    pMovieDialogGenre.textContent = genre.name;
-    divMovieDialogGenres.appendChild(pMovieDialogGenre);
-  });
-  movieDialog.appendChild(divMovieDialogGenres);
-  const pMovieDialogOverview = document.createElement("p");
-  pMovieDialogOverview.textContent = movie.overview;
-  movieDialog.appendChild(pMovieDialogOverview);
-  console.log(movieDialog);
+  return `
+    <h1 class="movie-dialog-title">${movie.title}</h1>
+    <button id="movie-dialog-close-btn">Close</button>
+    <div class="movie-dialog-backdrop-poster-container">
+      <img class="movie-dialog-backdrop-poster" src="https://image.tmdb.org/t/p/w500${
+        movie.backdrop_path
+      }" alt="${movie.title} backdrop poster.">
+    </div>
+    <p>Runtime: ${movie.runtime} min</p>
+    <p>Release date: ${movie.release_date}</p>
+    <div class="movie-dialog-genres">
+      ${movie.genres
+        .map((genre) => {
+          return `<p class="movie-dialog-genre">${genre.name}</p>`;
+        })
+        .join("")}
+    </div>
+    <p>${movie.overview}</p>
+  `;
 }
 
 document.addEventListener("click", async (event) => {
@@ -179,11 +156,12 @@ document.addEventListener("click", async (event) => {
       const data = await response.json();
 
       const movie = data;
-      createMovieDialog(movie);
-      document.body.appendChild(movieDialog);
+      movieDialog.innerHTML = createMovieDialog(movie);
       movieDialog.showModal();
 
-      movieDialogCloseButton = document.getElementById("movie-dialog-close-btn");
+      movieDialogCloseButton = document.getElementById(
+        "movie-dialog-close-btn"
+      );
 
       movieDialogCloseButton.addEventListener("click", (event) => {
         event.preventDefault();
