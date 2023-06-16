@@ -118,25 +118,34 @@ searchInput.addEventListener("keydown", async (event) => {
   }
 });
 
-function createMovieDialog(movie) {
+function createMovieDialog(movieDetails, movieVideos) {
   return `
-    <h1 class="movie-dialog-title">${movie.title}</h1>
-    <button id="movie-dialog-close-btn">Close</button>
-    <div class="movie-dialog-backdrop-poster-container">
-      <img class="movie-dialog-backdrop-poster" src="https://image.tmdb.org/t/p/w500${
-        movie.backdrop_path
-      }" alt="${movie.title} backdrop poster.">
+    <h1 class="movie-dialog-title">${movieDetails.title}</h1>
+    <div class="movie-dialog-media-container">
+      <div>
+        <img class="movie-dialog-backdrop-poster" src="https://image.tmdb.org/t/p/w500${
+          movieDetails.backdrop_path
+        }" alt="${movieDetails.title} backdrop poster.">
+      </div>
+      ${
+        movieVideos.results.length !== 0
+          ? `<div><iframe class="movie-dialog-video" src="https://www.youtube.com/embed/${movieVideos.results[0].key}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+          : ""
+      }
     </div>
-    <p>Runtime: ${movie.runtime} min</p>
-    <p>Release date: ${movie.release_date}</p>
-    <div class="movie-dialog-genres">
-      ${movie.genres
-        .map((genre) => {
-          return `<p class="movie-dialog-genre">${genre.name}</p>`;
-        })
-        .join("")}
+    <div class="movie-dialog-info-container">
+      <p>Runtime: ${movieDetails.runtime} min</p>
+      <p>Release date: ${movieDetails.release_date}</p>
+      <div class="movie-dialog-genres">
+        ${movieDetails.genres
+          .map((genre) => {
+            return `<p class="movie-dialog-genre">${genre.name}</p>`;
+          })
+          .join("")}
+      </div>
+      <p>${movieDetails.overview}</p>
     </div>
-    <p>${movie.overview}</p>
+    <button id="movie-dialog-close-btn">❌</button>
   `;
 }
 
@@ -146,17 +155,21 @@ document.addEventListener("click", async (event) => {
     try {
       const baseURL = `https://api.themoviedb.org/3/movie/${movieId}`;
       const apikey = "b55c170bfdfea258df28f3ba96c063b4";
-
       const url = new URL(baseURL);
       url.searchParams.append("api_key", apikey);
-
-      console.log(url);
-
       const response = await fetch(url);
       const data = await response.json();
+      const movieDetails = data;
 
-      const movie = data;
-      movieDialog.innerHTML = createMovieDialog(movie);
+      const baseURL2 = `https://api.themoviedb.org/3/movie/${movieId}/videos`;
+      const url2 = new URL(baseURL2);
+      url2.searchParams.append("api_key", apikey);
+      const response2 = await fetch(url2);
+      const data2 = await response2.json();
+      const movieVideos = data2;
+
+      movieDialog.innerHTML = createMovieDialog(movieDetails, movieVideos);
+      movieDialog.style.display = "block";
       movieDialog.showModal();
 
       movieDialogCloseButton = document.getElementById(
@@ -166,6 +179,7 @@ document.addEventListener("click", async (event) => {
       movieDialogCloseButton.addEventListener("click", (event) => {
         event.preventDefault();
         movieDialog.close();
+        movieDialog.style.display = "none";
       });
     } catch (error) {
       console.log(error);

@@ -1,112 +1,198 @@
 body {
-    background-color: #000000;
-    margin: 0px;
-  }
-  
-  #header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 60px;
-    background-color: #000000;
-    padding: 0px 20px 0px 20px;
-    box-sizing: border-box;
-    z-index: 100;
-  }
-  
-  #logo {
-    color: #ffffff;
-    font-family: "Raleway", sans-serif;
-  }
-  
-  #search-form {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      align-items: center;
-      flex-grow: 1;
-  }
-  
-  #main {
-    margin-top: 60px;
-  }
-  
-  h2 {
-    background-color: #c6de41;
-    padding: 20px;
-    margin: 0px;
-    font-family: "Raleway", sans-serif;
-  }
-  
-  .movies-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .movie-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    background-color: #222831;
-    position: relative;
-  }
-  
-  .movie-title-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-  }
-  
-  .movie-title {
-    color: #ffffff;
-    text-align: center;
-    font-family: "Raleway", sans-serif;
-    font-size: 20px;
-  }
-  
-  .movie-poster {
-    width: 100%;
-    display: block;
-  }
-  
-  .movie-votes {
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    color: #ffffff;
-    background-color: #153b44;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 20px;
-    margin: 0px 10px 10px 0px;
-    font-family: "Lato", sans-serif;
-  }
-  
-  #load-more-movies-btn {
-    display: block;
-    margin: 0px auto 20px auto;
-    padding: 10px 20px;
-    background-color: #c6de41;
-    border: none;
-    border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  #search-input {
-      height: 30px;
-      padding: 0px 10px 0px 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 15px;
-      margin-right: 10px;
-      font-family: "Raleway", sans-serif;
-      font-weight: bold;
-  }
+  background-color: #000000;
+  margin: 0px;
+}
+
+#header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 60px;
+  background-color: #000000;
+  padding: 0px 20px 0px 20px;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+#logo {
+  color: #ffffff;
+  font-family: "Raleway", sans-serif;
+}
+
+#search-form {
+  flex-grow: 1;
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#main {
+  margin-top: 60px;
+}
+
+h2 {
+  background-color: #c6de41;
+  padding: 20px;
+  margin: 0px;
+  font-family: "Raleway", sans-serif;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: #222831;
+  position: relative;
+}
+
+.movie-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.movie-title {
+  color: #ffffff;
+  text-align: center;
+  font-family: "Raleway", sans-serif;
+  font-size: 20px;
+}
+
+.movie-poster {
+  width: 100%;
+  display: block;
+}
+
+.movie-votes {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  color: #ffffff;
+  background-color: #153b44;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  margin: 0px 10px 10px 0px;
+  font-family: "Lato", sans-serif;
+}
+
+#load-more-movies-btn {
+  display: block;
+  margin: 0px auto 20px auto;
+  padding: 10px 20px;
+  background-color: #c6de41;
+  border: none;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#search-input {
+  height: 30px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: 300px;
+  padding: 0px 10px 0px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  margin-right: 10px;
+  margin-left: 20px;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}
+
+#movie-dialog {
+  max-width: 1000px;
+  border: none;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.movie-dialog-media-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.movie-dialog-backdrop-poster {
+  width: 100%;
+  display: block;
+}
+
+.movie-dialog-video {
+  width: 100%;
+  display: block;
+  height: 100%;
+}
+
+#movie-dialog p {
+  font-family: "Raleway", sans-serif;
+}
+
+.movie-dialog-title {
+  font-family: "Raleway", sans-serif;
+  font-size: 30px;
+  margin: 0px 0px 20px 0px;
+}
+
+.movie-dialog-genres{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.movie-dialog-genre {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 0px;
+  font-family: "Raleway", sans-serif;
+}
+
+#movie-dialog-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  font-family: "Raleway", sans-serif;
+}
+
+#close-search-btn {
+  background: #ffffff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#search-btn {
+  background: #ffffff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
