@@ -1,19 +1,21 @@
-var MoviesGridContainer = document.getElementById("movies-grid-container");
-var moviesGrid = document.getElementById("movies-grid");
-var loadMoreMoviesButton = document.getElementById("load-more-movies-btn");
+// using const variables here as using var will attach them to global window scope
+const MoviesGridContainer = document.getElementById("movies-grid-container");
+const moviesGrid = document.getElementById("movies-grid");
+const loadMoreMoviesButton = document.getElementById("load-more-movies-btn");
 
-var searchButton = document.getElementById("search-btn");
-var searchInput = document.getElementById("search-input");
-var closeSearchButton = document.getElementById("close-search-btn");
+const searchButton = document.getElementById("search-btn");
+const searchInput = document.getElementById("search-input");
+const closeSearchButton = document.getElementById("close-search-btn");
 
-var searchMoviesGridContainer = document.getElementById(
+const searchMoviesGridContainer = document.getElementById(
   "search-movies-grid-container"
 );
-var searchMoviesGrid = document.getElementById("search-movies-grid");
+const searchMoviesGrid = document.getElementById("search-movies-grid");
 
-var movieDialog = document.getElementById("movie-dialog");
+const movieDialog = document.getElementById("movie-dialog");
 
-var displayedPages = 1;
+// const variable cannot be altered, it must be declared using let
+let displayedPages = 1;
 
 function createMovieCard(movie) {
   return `
